@@ -5,6 +5,7 @@ from aiogram.utils import executor
 import logging
 import requests
 from datetime import datetime
+from random import randint
 
 from config import TOKEN
 from config import WEATHER_TOKEN
@@ -68,6 +69,10 @@ async def process_get_weather_command(message: types.Message):
 
     except:
         await message.reply("\U00002620 Проверьте название города \U00002620")
+
+@dp.message_handler(commands=["randint"])
+async def process_randint_command(message: types.Message):
+    await bot.send_message(message.from_user.id, randint(0,int(message.get_args())))
 
 
 @dp.message_handler()
