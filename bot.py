@@ -70,14 +70,20 @@ async def process_get_weather_command(message: types.Message):
     except:
         await message.reply("\U00002620 Проверьте название города \U00002620")
 
+
 @dp.message_handler(commands=["randint"])
 async def process_randint_command(message: types.Message):
-    await bot.send_message(message.from_user.id, randint(0,int(message.get_args())))
+    await bot.send_message(message.from_user.id, randint(0, int(message.get_args())))
+
+
+@dp.message_handler(commands=["roll"])
+async def process_roll_command(message: types.Message):
+    await bot.send_message(message.from_user.id, message.text)
 
 
 @dp.message_handler()
-async def echo_message(msg: types.Message):
-    await bot.send_message(msg.from_user.id, msg.text)
+async def echo_message(message: types.Message):
+    await bot.send_message(message.from_user.id, message.text)
 
 
 if __name__ == "__main__":
