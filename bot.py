@@ -26,7 +26,7 @@ async def process_help_command(message: types.Message):
     await message.reply("Напиши мне что-нибудь, и я отпрпавлю этот текст тебе в ответ!")
 
 
-@dp.message_handler(commands=["weather"])
+@dp.message_handler(commands=["weather", "w"])
 async def process_get_weather_command(message: types.Message):
     place = message.get_args()
     code_to_smile = {
@@ -51,7 +51,7 @@ async def process_get_weather_command(message: types.Message):
         else:
             wd = "Посмотри в окно, не пойму что там за погода!"
         humidity = data["main"]["humidity"]
-        pressure = data["main"]["pressure"]
+        pressure = int(data["main"]["pressure"]) // 1.33
         wind = data["wind"]["speed"]
         sunrise_timestamp = datetime.fromtimestamp(data["sys"]["sunrise"])
         sunset_timestamp = datetime.fromtimestamp(data["sys"]["sunset"])
@@ -76,9 +76,9 @@ async def process_randint_command(message: types.Message):
     await bot.send_message(message.from_user.id, randint(0, int(message.get_args())))
 
 
-@dp.message_handler(commands=["roll"])
+@dp.message_handler(commands=["roll", "r"])
 async def process_roll_command(message: types.Message):
-    await bot.send_message(message.from_user.id, message.text)
+    await bot.send_message(message.from_user.id, randint(1, 20))
 
 
 @dp.message_handler()
